@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.869ee58a.css",
-    "main.js": "/static/js/main.5506427b.js",
-    "static/media/green-portal.png": "/static/media/green-portal.a218ca229093de6f08d2.png",
-    "static/media/widget-logo.png": "/static/media/widget-logo.42c8df0b92603ef2e2e2.png",
-    "static/media/male.svg": "/static/media/male.42d01c2c5e1d7025a594642a761f1939.svg",
-    "static/media/cancel.svg": "/static/media/cancel.4b5d6246b6f99ffb9e3f56ab2d70c07f.svg",
-    "static/media/down.svg": "/static/media/down.7fb9120a42dd93bcddb3e430a7dec7c7.svg",
-    "index.html": "/index.html",
-    "static/media/up.svg": "/static/media/up.072a9b6bd6d1a1be9ad6d673d499530d.svg",
-    "static/media/genderless.svg": "/static/media/genderless.dec799ed2f3cfbb46522c185f9dbb030.svg",
-    "static/media/female.svg": "/static/media/female.02f202d68bdd63c12690625cf6aec3fd.svg",
-    "main.869ee58a.css.map": "/static/css/main.869ee58a.css.map",
-    "main.5506427b.js.map": "/static/js/main.5506427b.js.map"
+    "main.css": "/elf-test/static/css/main.869ee58a.css",
+    "main.js": "/elf-test/static/js/main.a48d8cde.js",
+    "static/media/green-portal.png": "/elf-test/static/media/green-portal.a218ca229093de6f08d2.png",
+    "static/media/widget-logo.png": "/elf-test/static/media/widget-logo.42c8df0b92603ef2e2e2.png",
+    "static/media/male.svg": "/elf-test/static/media/male.42d01c2c5e1d7025a594642a761f1939.svg",
+    "static/media/cancel.svg": "/elf-test/static/media/cancel.4b5d6246b6f99ffb9e3f56ab2d70c07f.svg",
+    "index.html": "/elf-test/index.html",
+    "static/media/down.svg": "/elf-test/static/media/down.7fb9120a42dd93bcddb3e430a7dec7c7.svg",
+    "static/media/up.svg": "/elf-test/static/media/up.072a9b6bd6d1a1be9ad6d673d499530d.svg",
+    "static/media/genderless.svg": "/elf-test/static/media/genderless.dec799ed2f3cfbb46522c185f9dbb030.svg",
+    "static/media/female.svg": "/elf-test/static/media/female.02f202d68bdd63c12690625cf6aec3fd.svg",
+    "main.869ee58a.css.map": "/elf-test/static/css/main.869ee58a.css.map",
+    "main.a48d8cde.js.map": "/elf-test/static/js/main.a48d8cde.js.map"
   },
   "entrypoints": [
     "static/css/main.869ee58a.css",
-    "static/js/main.5506427b.js"
+    "static/js/main.a48d8cde.js"
   ]
 }
