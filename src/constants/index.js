@@ -1,3 +1,3 @@
-export * from './species';
-export * from './gender';
-export * from './status';
+export { speciesOptions } from './species';
+export { genderOptions } from './gender';
+export { statusOptions } from './status';
