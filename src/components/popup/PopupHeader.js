@@ -1,5 +1,7 @@
+import { CardStatus } from '../card/CardStatus';
+import { CardTitle } from '../card/CardTitle';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { CardStatus, CardTitle } from '../Card';
 
 export function PopupHeader({ image, name, gender, status, species, type }) {
   return (
@@ -11,16 +13,25 @@ export function PopupHeader({ image, name, gender, status, species, type }) {
   );
 }
 
+PopupHeader.propTypes = {
+  image: PropTypes.string,
+  name: PropTypes.string,
+  gender: PropTypes.string,
+  status: PropTypes.string,
+  species: PropTypes.string,
+  type: PropTypes.string
+};
+
 const PopupHeaderContainer = styled.div``;
 
 const PopupTitle = styled(CardTitle)`
-  font-size: 22px;
+  font-size: ${({ theme }) => theme.fontSize.xlarge};
   margin-top: 30px;
   justify-content: center;
 `;
 
 const PopupStatus = styled(CardStatus)`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSize.large};
   justify-content: center;
 
   & p {

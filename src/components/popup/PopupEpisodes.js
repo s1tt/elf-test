@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
-import styled, { css } from 'styled-components';
-import axios from 'axios';
 import { Loader, Text } from '../common';
+import styled, { css } from 'styled-components';
+import { useEffect, useState } from 'react';
+
+import PropTypes from 'prop-types';
+import axios from 'axios';
 
 const API_EPISODES_URL = 'https://rickandmortyapi.com/api/episode';
 
@@ -26,7 +28,8 @@ export function PopupEpisodes({ episodes }) {
         } else {
           setSeries(data);
         }
-      });
+      })
+      .finally(() => setIsFetching(false));
   }, [episodes]);
 
   if (isFetching) {
@@ -53,6 +56,10 @@ export function PopupEpisodes({ episodes }) {
   );
 }
 
+PopupEpisodes.propTypes = {
+  episodes: PropTypes.arrayOf(PropTypes.string)
+};
+
 const PopupEpisodesContainer = styled.div``;
 
 const StyledPopupEpisodes = styled.div`
@@ -72,7 +79,7 @@ const StyledPopupEpisodes = styled.div`
 
       & p {
         width: 95%;
-        border-bottom: 2px solid #eee;
+        border-bottom: 2px solid ${({ theme }) => theme.colors.graySuperLight};
       }
 
       & span {
@@ -92,5 +99,5 @@ const Episode = styled.p`
 
 const EpisodeMarking = styled.span`
   margin-bottom: 8px;
-  color: #83bf46;
+  color: ${({ theme }) => theme.colors.green};
 `;

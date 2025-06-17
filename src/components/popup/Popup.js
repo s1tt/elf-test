@@ -1,7 +1,10 @@
 import styled, { css } from 'styled-components';
+import { useCallback, useEffect } from 'react';
+
 import { PopupEpisodes } from './PopupEpisodes';
 import { PopupHeader } from './PopupHeader';
 import { PopupInfo } from './PopupInfo';
+import PropTypes from 'prop-types';
 
 export function Popup({ settings: { visible, content = {} }, setSettings }) {
   const {
@@ -16,19 +19,48 @@ export function Popup({ settings: { visible, content = {} }, setSettings }) {
     episode: episodes
   } = content;
 
-  function togglePopup(e) {
-    if (e.currentTarget !== e.target) {
-      return;
+  useEffect(() => {
+    if (!visible) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setSettings((prev) => ({ ...prev, visible: false }));
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [visible, setSettings]);
+
+  useEffect(() => {
+    if (visible) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
     }
 
-    setSettings((prevState) => ({
-      ...prevState,
-      visible: !prevState.visible
-    }));
-  }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [visible]);
+
+  const togglePopup = useCallback(
+    (e) => {
+      if (e.currentTarget !== e.target) {
+        return;
+      }
+
+      setSettings((prevState) => ({
+        ...prevState,
+        visible: !prevState.visible
+      }));
+    },
+    [setSettings]
+  );
 
   return (
-    <PopupContainer visible={visible}>
+    <PopupContainer visible={visible} onClick={togglePopup}>
       <StyledPopup>
         <CloseIcon onClick={togglePopup} />
 
@@ -49,13 +81,31 @@ export function Popup({ settings: { visible, content = {} }, setSettings }) {
   );
 }
 
+Popup.propTypes = {
+  settings: PropTypes.shape({
+    visible: PropTypes.bool.isRequired,
+    content: PropTypes.shape({
+      name: PropTypes.string,
+      gender: PropTypes.string,
+      image: PropTypes.string,
+      status: PropTypes.string,
+      species: PropTypes.string,
+      type: PropTypes.string,
+      origin: PropTypes.object,
+      location: PropTypes.object,
+      episode: PropTypes.arrayOf(PropTypes.string)
+    })
+  }).isRequired,
+  setSettings: PropTypes.func.isRequired
+};
+
 const PopupContainer = styled.div`
   position: fixed;
   z-index: 10;
   background: rgba(0, 0, 0, 0.4);
   width: 100%;
   height: 100vh;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.white};
   top: 0;
   left: 0;
   opacity: 0;
@@ -79,10 +129,10 @@ const StyledPopup = styled.div`
   height: auto;
   max-height: 90vh;
   margin-top: calc(10vh - 20px);
-  background: #263750;
+  background: ${({ theme }) => theme.colors.bgSecondary};
   border-radius: 15px;
   padding: 20px 40px;
-  border: 2px solid #83bf46;
+  border: 2px solid ${({ theme }) => theme.colors.green};
   overflow: auto;
 
   &::-webkit-scrollbar {
@@ -109,7 +159,7 @@ const CloseIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #83bf46aa;
+  background: ${({ theme }) => theme.colors.greenDark};
 
   &:before,
   &:after {
@@ -118,7 +168,7 @@ const CloseIcon = styled.div`
     display: block;
     width: 20px;
     height: 2px;
-    background: #fff;
+    background: ${({ theme }) => theme.colors.white};
   }
 
   &:before {
