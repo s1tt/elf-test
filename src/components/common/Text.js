@@ -1,10 +1,10 @@
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 export function Text({
   className,
   children,
   style,
-  lineHeight,
   color = '#ccc',
   fontSize = '16px'
 }) {
@@ -19,6 +19,14 @@ export function Text({
     </StyledText>
   );
 }
+
+Text.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  style: PropTypes.object,
+  color: PropTypes.string,
+  fontSize: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+};
 
 const StyledText = styled.span`
   color: ${({ _color }) => _color};

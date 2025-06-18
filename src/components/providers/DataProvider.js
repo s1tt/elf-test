@@ -1,5 +1,14 @@
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState
+} from 'react';
+
+import PropTypes from 'prop-types';
 import axios from 'axios';
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 const API_URL = 'https://rickandmortyapi.com/api/character/';
 
@@ -9,9 +18,13 @@ export function DataProvider({ children }) {
   const [isFetching, setIsFetching] = useState(false);
   const [isError, setIsError] = useState(false);
   const [info, setInfo] = useState({});
-  const [apiURL, setApiURL] = useState(API_URL);
+  const [apiURL, setApiURL] = useState(null);
 
-  const fetchData = async (url) => {
+  const fetchData = useCallback(async (url) => {
+    if (!url) {
+      return;
+    }
+
     setIsFetching(true);
     setIsError(false);
 
@@ -27,11 +40,26 @@ export function DataProvider({ children }) {
         setIsError(true);
         console.error(e);
       });
-  };
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const pageParam = params.get('page');
+    let pageNumber = parseInt(pageParam, 10);
+
+    if (!pageParam || isNaN(pageNumber) || pageNumber < 1) {
+      pageNumber = 1;
+      params.set('page', '1');
+      window.history.replaceState(null, '', `?${params.toString()}`);
+    }
+
+    setActivePage(pageNumber - 1);
+    setApiURL(`${API_URL}?${params.toString()}`);
+  }, []);
 
   useEffect(() => {
     fetchData(apiURL);
-  }, [apiURL]);
+  }, [apiURL, fetchData]);
 
   const dataValue = useMemo(
     () => ({
@@ -52,6 +80,10 @@ export function DataProvider({ children }) {
     <DataContext.Provider value={dataValue}>{children}</DataContext.Provider>
   );
 }
+
+DataProvider.propTypes = {
+  children: PropTypes.node.isRequired
+};
 
 const DataContext = createContext({});
 

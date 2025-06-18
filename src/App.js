@@ -2,7 +2,7 @@ import { AppState, Header, ItemsGrid, Pagination, useData } from './components';
 
 import styled from 'styled-components';
 
-export default function App() {
+export function App() {
   const { isFetching, isError } = useData();
 
   return (

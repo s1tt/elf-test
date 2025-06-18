@@ -1,5 +1,6 @@
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { Text } from '../common';
+import styled from 'styled-components';
 
 export function PopupInfo({ origin, location }) {
   return (
@@ -20,6 +21,15 @@ export function PopupInfo({ origin, location }) {
     </StyledPopupInfo>
   );
 }
+
+PopupInfo.propTypes = {
+  origin: PropTypes.shape({
+    name: PropTypes.string
+  }),
+  location: PropTypes.shape({
+    name: PropTypes.string
+  })
+};
 
 const StyledPopupInfo = styled.div`
   display: flex;
@@ -46,7 +56,7 @@ const PopupOrigin = styled.div`
 const PopupLastLocation = styled(PopupOrigin)``;
 
 const PopupOriginValue = styled.p`
-  color: #83bf46;
+  color: ${({ theme }) => theme.colors.green};
 `;
 
 const PopupLastLocationValue = styled(PopupOriginValue)``;
